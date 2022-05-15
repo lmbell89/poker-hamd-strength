@@ -1,0 +1,19 @@
+{
+  "name": "texas-holdem",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jasmine"
+  },
+  "author": "",
+  "type": "module",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "jasmine": "^4.1.0"
+  }
+}
