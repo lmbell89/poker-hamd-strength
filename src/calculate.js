@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import SUITS from "./constants/suits.js"
 import HAND_TYPES from "./constants/hand-types.js"
 import Hand from "./hand.js"
@@ -23,10 +24,37 @@ const royalFlush = (cards) => {
   Object.values(SUITS).forEach(suit => {
     const drawn = cards.filter(c => c.value >= 10 && c.suit == suit)
     const needed = 5 - drawn.length
-    hand.count += _combinations(cardsInDeck, toDraw - needed)
+    hand.count += _combinations(cardsInDeck - needed, toDraw - needed)
   })
 
   return [hand]
 }
 
-export { royalFlush }
+const straightFlush = (cards) => {
+  const { toDraw, cardsInDeck } = _getCardNumbers(cards.length)
+  const hands = []
+
+  const isCardInStraightFlush = (card, flushHighCard, suit) => {
+    let value = (flushHighCard == 5 && card.value == 14) ? 1 : card.value
+    return card.suit == suit && value <= flushHighCard && value >= flushHighCard - 4
+  }
+ 
+  for (let highCard = 5; highCard < 14; highCard++) {
+    const hand = new Hand(HAND_TYPES.STRAIGHT_FLUSH, _.range(highCard, highCard - 5, -1))
+    hands.push(hand)
+
+    Object.values(SUITS).forEach(suit => {
+      const drawn = cards.filter(c => isCardInStraightFlush(c, highCard, suit))
+      const cardForHigherStraight = cards.find(c => c.value == highCard + 1 && c.suit == suit)
+      if (cardForHigherStraight) {
+        return
+      }
+      const needed = 5 - drawn.length
+      hand.count += _combinations(cardsInDeck - 1 - needed, toDraw - needed)
+    })
+  }
+
+  return hands
+}
+
+export { royalFlush, straightFlush }
