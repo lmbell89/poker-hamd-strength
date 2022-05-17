@@ -57,4 +57,63 @@ const straightFlush = (cards) => {
   return hands
 }
 
-export { royalFlush, straightFlush }
+const fourOfAKind = (cards) => {
+  const { toDraw } = _getCardNumbers(cards.length)
+  const hands = []
+
+  const _getCombinations = (foursNeeded, kickersNeeded, kickersDrawn, othersNeeded, othersDrawn, otherPossibleValues, toDraw) => {
+    const cardsNeeded = foursNeeded + kickersNeeded + othersNeeded
+    if (cardsNeeded > toDraw) {
+      return 0
+    }
+    if (otherPossibleValues == 0 && othersNeeded > 0) {
+      return 0
+    }
+    let combinations = kickersNeeded ? _combinations(4 - kickersDrawn, kickersNeeded) : 1    
+    combinations *= othersNeeded ? _combinations(otherPossibleValues * 4 - othersDrawn, othersNeeded) : 1
+    return combinations
+  }
+
+  for (let fours = 2; fours < 15; fours++) {
+    const foursDrawn = cards.filter(c => c.value == fours)
+    const foursNeeded = 4 - foursDrawn.length
+
+      for (let kicker = 2; kicker < 15; kicker++) {
+        const hand = new Hand(
+          HAND_TYPES.FOUR_OF_A_KIND, 
+          [fours, fours, fours, fours, kicker]
+        )
+
+        if (kicker == fours) {
+          continue
+        }
+
+        hands.push(hand)
+
+        const kickersDrawn = cards.filter(c => c.value == kicker).length
+        const othersDrawn = cards.filter(c => c.value < kicker && c.value != fours).length
+
+        const otherPossibleValues = fours < kicker ? kicker - 3 : kicker - 2
+        let kickersNeeded = 0
+        let othersNeeded = 0
+
+        // 3x kickers
+        kickersNeeded = 3 - kickersDrawn
+        hand.count += _getCombinations(foursNeeded, kickersNeeded, kickersDrawn, othersNeeded, othersDrawn, otherPossibleValues, toDraw)
+
+        // 2x kickers, 1x other
+        kickersNeeded = 2 - kickersDrawn
+        othersNeeded = 1 - othersDrawn
+        hand.count += _getCombinations(foursNeeded, kickersNeeded, kickersDrawn, othersNeeded, othersDrawn, otherPossibleValues, toDraw)
+
+        // 1x kicker, 2x others
+        kickersNeeded = 1 - kickersDrawn
+        othersNeeded = 2 - othersDrawn
+        hand.count += _getCombinations(foursNeeded, kickersNeeded, kickersDrawn, othersNeeded, othersDrawn, otherPossibleValues, toDraw)
+    }
+  }
+
+  return hands
+}
+
+export { royalFlush, straightFlush, fourOfAKind }
