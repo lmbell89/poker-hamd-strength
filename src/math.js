@@ -1,5 +1,5 @@
 const factorial = (n) => {
-  if (!Number.isInteger(n)) throw "Cannot calculate factorials for decimal numbers"
+  if (!Number.isInteger(n)) throw `N must be an integer. Value provided was ${n}`
   if (n < 0) throw "Cannot calculate factorials for negative numbers"
   return n <= 1 ? 1 : n * factorial(n - 1)
 }
