@@ -9,10 +9,20 @@ export default class CalculatorBase {
   constructor(cardsDrawn, handType) {
     this.cardsDrawn = cardsDrawn
     this.handType = handType
-    this.toDraw = this.PLAYER_CARDS + this.COMMUNITY_CARDS - cardsDrawn.length
-    this.cardsInDeck = this.DECK_SIZE - this.cardsDrawn.length
     this.hands = []
     this.calculate()
+  }
+
+  get count() {
+    return this.hands.map(h => h.count).reduce((a, b) => a + b)
+  }
+
+  get toDraw() {
+    return this.PLAYER_CARDS + this.COMMUNITY_CARDS - this.cardsDrawn.length
+  }
+
+  get cardsInDeck() {
+    return this.DECK_SIZE - this.cardsDrawn.length
   }
 
   nCr(n, r) {
@@ -29,9 +39,5 @@ export default class CalculatorBase {
       yield _.range(highCard, highCard - 5, -1)
       highCard++
     }
-  }
-
-  * flushValues() {
-
   }
 }
