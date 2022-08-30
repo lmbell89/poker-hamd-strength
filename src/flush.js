@@ -6,12 +6,12 @@ import Hand from "./hand.js";
 
 export default class Flush extends CalculatorBase {
   constructor(cardsDrawn) {
-    super(cardsDrawn, HAND_TYPES.STRAIGHT_FLUSH)
+    super(cardsDrawn, HAND_TYPES.FLUSH)
   }
 
   find(values) {
     values = values.sort((a, b) => b - a)
-    return this.hands.find(h => _.isEqual(h.cards.map(c => c.value), values))
+    return this.hands.find(h => _.isEqual(h.cardValues, values))
   }
 
   calculate() {

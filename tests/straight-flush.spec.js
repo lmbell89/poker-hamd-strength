@@ -21,10 +21,10 @@ describe("Straight Flush", () => {
     const cards = [4, 5, 6, 7, 13].map(v => new Card(v, SUITS.CLUBS))
     const hands = new StraightFlush(cards).hands
     expect(hands.length).toBe(9)
-    expect(hands.find(h => h.cards[0].value == 6).count).toBe(0)
-    expect(hands.find(h => h.cards[0].value == 7).count).toBe(45)
-    expect(hands.find(h => h.cards[0].value == 8).count).toBe(45)
-    expect(hands.find(h => h.cards[0].value == 9).count).toBe(1)
+    expect(hands.find(h => h.cardValues[0] == 6).count).toBe(0)
+    expect(hands.find(h => h.cardValues[0] == 7).count).toBe(45)
+    expect(hands.find(h => h.cardValues[0] == 8).count).toBe(45)
+    expect(hands.find(h => h.cardValues[0] == 9).count).toBe(1)
   })
 
   it("handles multiple suits", () => {
@@ -34,7 +34,7 @@ describe("Straight Flush", () => {
     ]
     const hands = new StraightFlush(cards).hands
     expect(hands.length).toBe(9)
-    expect(hands.find(h => h.cards[0].value == 10).count).toBe(92)    
+    expect(hands.find(h => h.cardValues[0] == 10).count).toBe(92)    
   })
 
   it("handles gaps in dealt cards", () => {
@@ -45,6 +45,6 @@ describe("Straight Flush", () => {
     ]
     const hands = new StraightFlush(cards).hands
     expect(hands.length).toBe(9)
-    expect(hands.find(h => h.cards[0].value == 6).count).toBe(45)    
+    expect(hands.find(h => h.cardValues[0] == 6).count).toBe(45)    
   })
 })

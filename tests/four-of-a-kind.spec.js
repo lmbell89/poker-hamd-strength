@@ -45,9 +45,9 @@ describe("Four of a kind", () => {
     const hands = new FourOfAKind(cards).hands
     expect(hands.length).toBe(156)
     expect(hands.filter(h => h.count > 0).length).toBe(12)
-    expect(hands.find(h => h.cards[0].value == 3 && h.cards[4].value == 2).count).toBe(4)
-    expect(hands.find(h => h.cards[0].value == 3 && h.cards[4].value == 4).count).toBe(52)
-    expect(hands.find(h => h.cards[0].value == 3 && h.cards[4].value == 5).count).toBe(164)
+    expect(hands.find(h => h.cardValues[0] == 3 && h.cardValues[4] == 2).count).toBe(4)
+    expect(hands.find(h => h.cardValues[0] == 3 && h.cardValues[4] == 4).count).toBe(52)
+    expect(hands.find(h => h.cardValues[0] == 3 && h.cardValues[4] == 5).count).toBe(164)
   })
 
   it("handles 1 required for 2 different four-of-a-kinds with 1 to draw", () => {
@@ -79,6 +79,6 @@ describe("Four of a kind", () => {
   it("handles starting with 0 cards", () => {
     const hands = new FourOfAKind([]).hands
     expect(hands.length).toBe(156)
-    expect(hands.find(h => h.cards[0].value == 10 && h.cards[4].value == 14).count).toBe(4052)
+    expect(hands.find(h => h.cardValues[0] == 10 && h.cardValues[4] == 14).count).toBe(4052)
   })
 })

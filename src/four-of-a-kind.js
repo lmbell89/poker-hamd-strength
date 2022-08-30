@@ -4,7 +4,7 @@ import Hand from "./hand.js"
 
 export default class FourOfAKind extends CalculatorBase {
   constructor(cardsDrawn) {
-    super(cardsDrawn, HAND_TYPES.STRAIGHT_FLUSH)
+    super(cardsDrawn, HAND_TYPES.FOUR_OF_A_KIND)
   }
 
   calculate() {
