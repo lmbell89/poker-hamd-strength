@@ -1,11 +1,11 @@
-import SUITS from "./constants/suits.js"
-import Hand from "./hand.js"
-import CalculatorBase from "./calculator-base.js";
-import HAND_TYPES from "./constants/hand-types.js";
+import SUITS from "../constants/suits.js"
+import Hand from "../hand.js"
+import HandCalculator from "./hand-calculator.js"
+import HANDS from "../constants/hands.js"
 
-export default class StraightFlush extends CalculatorBase {
+export default class StraightFlush extends HandCalculator {
   constructor(cardsDrawn) {
-    super(cardsDrawn, HAND_TYPES.STRAIGHT_FLUSH)
+    super(HANDS.STRAIGHT_FLUSH, cardsDrawn)
   }
 
   _isCardInStraightFlush(card, flushHighCard, suit) {
@@ -15,13 +15,17 @@ export default class StraightFlush extends CalculatorBase {
 
   calculate() {
     for (let values of this.straightValues(false)) {
-      const hand = new Hand(HAND_TYPES.STRAIGHT_FLUSH, values)
+      const hand = new Hand(HANDS.STRAIGHT_FLUSH, values)
       const highCard = values[0]
       this.hands.push(hand)
 
       Object.values(SUITS).forEach(suit => {
         const drawn = this.cardsDrawn.filter(c => this._isCardInStraightFlush(c, highCard, suit))
-        const cardForHigherStraight = this.cardsDrawn.find(c => c.value == highCard + 1 && c.suit == suit)
+
+        const cardForHigherStraight = this.cardsDrawn.find(c => {
+          return c.value == highCard + 1 && c.suit == suit
+        })
+
         if (cardForHigherStraight) {
           return
         }

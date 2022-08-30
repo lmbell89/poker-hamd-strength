@@ -1,20 +1,18 @@
-import { nCr } from "./math.js"
-import _ from 'lodash';
+import { nCr } from "../math.js"
+import _ from 'lodash'
+import HandCollection from "./hand-collection.js"
 
-export default class CalculatorBase {
+export default class HandCalculator extends HandCollection {
   PLAYER_CARDS = 2
   COMMUNITY_CARDS = 5
   DECK_SIZE = 52
 
-  constructor(cardsDrawn, handType) {
-    this.cardsDrawn = cardsDrawn
+  constructor(handType, cardsDrawn=[]) {
+    super()
+  
     this.handType = handType
-    this.hands = []
+    this.cardsDrawn = cardsDrawn
     this.calculate()
-  }
-
-  get count() {
-    return this.hands.map(h => h.count).reduce((a, b) => a + b)
   }
 
   get toDraw() {

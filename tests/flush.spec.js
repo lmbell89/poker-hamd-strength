@@ -1,9 +1,14 @@
 /* eslint-disable no-undef */
 import Card from "../src/card.js"
 import SUITS from "../src/constants/suits.js"
-import Flush from "../src/flush.js"
+import Flush from "../src/hand-types/flush.js"
 
 describe("Flush", () => {
+  it("finds the correct number of hands", () => {
+    const flush = new Flush()
+    expect(flush.hands.length).toBe(1278)
+  })
+
   it("handles 1 required with 1 to draw", () => {
     const cards = [
       new Card(2, SUITS.CLUBS),
@@ -14,14 +19,12 @@ describe("Flush", () => {
       new Card(13, SUITS.HEARTS),
     ]
     const flush = new Flush(cards)
-    expect(flush.hands.length).toBe(1278)
     expect(flush.count).toBe(9)
   })
 
   it("handles 5 required with 5 to draw", () => {
-    const flush = new Flush([])
-    expect(flush.hands.length).toBe(1278)
-    expect(flush.find([3, 4, 5, 6, 8]).count).toBe(2964)
+    const flush = new Flush()
+    expect(flush.filter([8, 6, 5, 4, 3]).count).toBe(2964)
   })
 
   it("handles 2 possible flushes with 3 to draw", () => {
@@ -32,8 +35,7 @@ describe("Flush", () => {
       new Card(10, SUITS.HEARTS),
     ]
     const flush = new Flush(cards)
-    expect(flush.hands.length).toBe(1278)
-    expect(flush.find([3, 10, 6, 7, 8]).count).toBe(2)
+    expect(flush.filter([10, 8, 7, 6, 3]).count).toBe(2)
     expect(flush.count).toBe(330)
   })
 
@@ -45,7 +47,6 @@ describe("Flush", () => {
       new Card(9, SUITS.DIAMONDS),
     ]
     const flush = new Flush(cards)
-    expect(flush.hands.length).toBe(1278)
     expect(flush.count).toBe(0)
   })
 
@@ -60,7 +61,6 @@ describe("Flush", () => {
       new Card(9, SUITS.DIAMONDS),
     ]
     const flush = new Flush(cards)
-    expect(flush.hands.length).toBe(1278)
     expect(flush.count).toBe(1)
   })
 
@@ -73,7 +73,6 @@ describe("Flush", () => {
       new Card(7, SUITS.CLUBS),
     ]
     const flush = new Flush(cards)
-    expect(flush.hands.length).toBe(1278)
     expect(flush.count).toBe(0)
   })
 
@@ -86,7 +85,6 @@ describe("Flush", () => {
       new Card(9, SUITS.DIAMONDS),
     ]
     const flush = new Flush(cards)
-    expect(flush.hands.length).toBe(1278)
     expect(flush.count).toBe(42)
   })
 
@@ -100,7 +98,6 @@ describe("Flush", () => {
       new Card(9, SUITS.DIAMONDS),
     ]
     const flush = new Flush(cards)
-    expect(flush.hands.length).toBe(1278)
     expect(flush.count).toBe(7)
   })
 })

@@ -1,4 +1,4 @@
-const HAND_TYPES = {
+const HANDS = {
   HIGH_CARD: 1,
   PAIR: 2,
   TWO_PAIR: 3,
@@ -11,4 +11,4 @@ const HAND_TYPES = {
   ROYAL_FLUSH: 10,
 }
 
-export default HAND_TYPES
+export default HANDS

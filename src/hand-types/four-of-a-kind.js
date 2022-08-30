@@ -1,10 +1,10 @@
-import CalculatorBase from "./calculator-base.js"
-import HAND_TYPES from "./constants/hand-types.js";
-import Hand from "./hand.js"
+import HandCalculator from "./hand-calculator.js"
+import HANDS from "../constants/hands.js";
+import Hand from "../hand.js"
 
-export default class FourOfAKind extends CalculatorBase {
+export default class FourOfAKind extends HandCalculator {
   constructor(cardsDrawn) {
-    super(cardsDrawn, HAND_TYPES.FOUR_OF_A_KIND)
+    super(HANDS.FOUR_OF_A_KIND, cardsDrawn)
   }
 
   calculate() {
@@ -14,7 +14,7 @@ export default class FourOfAKind extends CalculatorBase {
   
         for (let kicker = 2; kicker < 15; kicker++) {
           const hand = new Hand(
-            HAND_TYPES.FOUR_OF_A_KIND, 
+            HANDS.FOUR_OF_A_KIND, 
             [fours, fours, fours, fours, kicker]
           )
   
@@ -33,22 +33,47 @@ export default class FourOfAKind extends CalculatorBase {
   
           // 3x kickers
           kickersNeeded = 3 - kickersDrawn
-          hand.count += this._getCombinations(foursNeeded, kickersNeeded, kickersDrawn, othersNeeded, othersDrawn, otherPossibleValues)
+          hand.count += this._getCombinations(
+            foursNeeded, 
+            kickersNeeded, 
+            kickersDrawn, 
+            othersNeeded, 
+            othersDrawn, 
+            otherPossibleValues)
   
           // 2x kickers, 1x other
           kickersNeeded = 2 - kickersDrawn
           othersNeeded = 1 - othersDrawn
-          hand.count += this._getCombinations(foursNeeded, kickersNeeded, kickersDrawn, othersNeeded, othersDrawn, otherPossibleValues)
+          hand.count += this._getCombinations(
+            foursNeeded, 
+            kickersNeeded, 
+            kickersDrawn, 
+            othersNeeded, 
+            othersDrawn, 
+            otherPossibleValues)
   
           // 1x kicker, 2x others
           kickersNeeded = 1 - kickersDrawn
           othersNeeded = 2 - othersDrawn
-          hand.count += this._getCombinations(foursNeeded, kickersNeeded, kickersDrawn, othersNeeded, othersDrawn, otherPossibleValues)
+          hand.count += this._getCombinations(
+            foursNeeded, 
+            kickersNeeded, 
+            kickersDrawn, 
+            othersNeeded, 
+            othersDrawn, 
+            otherPossibleValues)
       }
     }
   }
 
-  _getCombinations(foursNeeded, kickersNeeded, kickersDrawn, othersNeeded, othersDrawn, otherPossibleValues) {
+  _getCombinations(
+    foursNeeded, 
+    kickersNeeded, 
+    kickersDrawn, 
+    othersNeeded, 
+    othersDrawn, 
+    otherPossibleValues) 
+  {
     const cardsNeeded = foursNeeded + kickersNeeded + othersNeeded
     if (cardsNeeded > this.toDraw) {
       return 0

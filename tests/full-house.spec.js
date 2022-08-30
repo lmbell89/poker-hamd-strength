@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import Card from "../src/card.js"
 import SUITS from "../src/constants/suits.js"
-import FullHouse from "../src/full-house.js"
+import FullHouse from "../src/hand-types/full-house.js"
 
 describe("Full House", () => {
   it("finds the correct number of hands", () => {

@@ -1,7 +1,7 @@
-import HAND_TYPES from "./constants/hand-types.js"
+import HANDS from "./constants/hands.js"
 
 export default class Hand {
-  constructor(type, cardValues, count=0) {
+  constructor(type, cardValues=[], count=0) {
     this.type = type
     this.cardValues = [...cardValues]
     this.count = count
@@ -15,25 +15,25 @@ export default class Hand {
 
   get description() {
     switch (this.type) {
-      case HAND_TYPES.ROYAL_FLUSH:
+      case HANDS.ROYAL_FLUSH:
         return "royal flush"
-      case HAND_TYPES.STRAIGHT_FLUSH:
+      case HANDS.STRAIGHT_FLUSH:
         return `${this.cardValues[0]}-high straight flush`
-      case HAND_TYPES.FOUR_OF_A_KIND:
+      case HANDS.FOUR_OF_A_KIND:
         return `four of a kind, ${this.cardValues[0]}s`
-      case HAND_TYPES.FULL_HOUSE:
+      case HANDS.FULL_HOUSE:
         return `full house, ${this.cardValues[0]}s over ${this.cardValues[4]}s`
-      case HAND_TYPES.FLUSH:
+      case HANDS.FLUSH:
         return `${this.cardValues[0]}-high flush`
-      case HAND_TYPES.STRAIGHT:
+      case HANDS.STRAIGHT:
         return `${this.cardValues[0]}-high straight`
-      case HAND_TYPES.THREE_OF_A_KIND:
+      case HANDS.THREE_OF_A_KIND:
         return `three of a kind, ${this.cardValues[0]}s`
-      case HAND_TYPES.TWO_PAIR:
+      case HANDS.TWO_PAIR:
         return `two pair, ${this.cardValues[0]}s over ${this.cardValues[2]}s`
-      case HAND_TYPES.PAIR:
+      case HANDS.PAIR:
         return `pair, ${this.cardValues[0]}s`
-      case HAND_TYPES.HIGH_CARD:
+      case HANDS.HIGH_CARD:
         return `high card, ${this.cardValues[0]}`
       default:
         throw `type: ${this.type} not recognised`

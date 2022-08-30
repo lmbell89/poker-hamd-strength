@@ -1,22 +1,17 @@
-import _ from "lodash";
-import CalculatorBase from "./calculator-base.js";
-import HAND_TYPES from "./constants/hand-types.js";
-import SUITS from "./constants/suits.js";
-import Hand from "./hand.js";
+import _ from "lodash"
+import HandCalculator from "./hand-calculator.js"
+import HANDS from "../constants/hands.js"
+import SUITS from "../constants/suits.js"
+import Hand from "../hand.js"
 
-export default class Flush extends CalculatorBase {
+export default class Flush extends HandCalculator {
   constructor(cardsDrawn) {
-    super(cardsDrawn, HAND_TYPES.FLUSH)
-  }
-
-  find(values) {
-    values = values.sort((a, b) => b - a)
-    return this.hands.find(h => _.isEqual(h.cardValues, values))
+    super(HANDS.FLUSH, cardsDrawn)
   }
 
   calculate() {
     for (let values of this._flushValues()) {
-      const hand = new Hand(HAND_TYPES.FLUSH, values)
+      const hand = new Hand(HANDS.FLUSH, values)
       this.hands.push(hand)
 
       Object.values(SUITS).forEach(suit => {

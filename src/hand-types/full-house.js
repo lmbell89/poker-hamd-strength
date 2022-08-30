@@ -1,11 +1,11 @@
-import _ from "lodash";
-import CalculatorBase from "./calculator-base.js";
-import HAND_TYPES from "./constants/hand-types.js";
-import Hand from "./hand.js";
+import _ from "lodash"
+import HandCalculator from "./hand-calculator.js"
+import HANDS from "../constants/hands.js"
+import Hand from "../hand.js"
 
-export default class FullHouse extends CalculatorBase {
-  constructor(cardsDrawn=[]) {
-    super(cardsDrawn, HAND_TYPES.FULL_HOUSE)
+export default class FullHouse extends HandCalculator {
+  constructor(cardsDrawn) {
+    super(HANDS.FULL_HOUSE, cardsDrawn)
   }
 
   calculate() {
@@ -14,10 +14,9 @@ export default class FullHouse extends CalculatorBase {
         if (threes == pair) {
           continue
         }
-        const doLogging = (threes === 9 && pair === 4) || true
 
         const values = [threes, threes, threes, pair, pair]
-        const hand = new Hand(HAND_TYPES.FULL_HOUSE, values)
+        const hand = new Hand(HANDS.FULL_HOUSE, values)
         this.hands.push(hand)
 
         const threesDrawn = this.cardsDrawn.filter(c => c.value === threes)

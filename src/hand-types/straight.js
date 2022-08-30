@@ -1,16 +1,16 @@
-import CalculatorBase from "./calculator-base.js";
-import HAND_TYPES from "./constants/hand-types.js";
-import SUITS from "./constants/suits.js";
-import Hand from "./hand.js";
+import HandCalculator from "./hand-calculator.js"
+import HANDS from "../constants/hand.js"
+import SUITS from "../constants/suits.js"
+import Hand from "../hand.js"
 
-export default class Flush extends CalculatorBase {
+export default class Straight extends HandCalculator {
   constructor(cardsDrawn) {
-    super(cardsDrawn, HAND_TYPES.STRAIGHT)
+    super(HANDS.STRAIGHT, cardsDrawn)
   }
 
   calculate() {
     for (let values of this.straightValues(true)) {
-      const hand = new Hand(HAND_TYPES.STRAIGHT, values)
+      const hand = new Hand(HANDS.STRAIGHT, values)
       const highCard = values[0]
       this.hands.push(hand)
 
